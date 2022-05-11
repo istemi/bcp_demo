@@ -46,7 +46,10 @@ jobs:
           export ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET
           export ARM_TENANT_ID=b6f9f524-e9ad-419e-ba1d-d931e71a49e7
           export ARM_CLIENT_ID=74e58dcc-5d91-4b1b-959a-ae913c5e7d46
-          
+      - name: AZ Login
+        run: |
+          az login --service-principal -u $ARM_CLIENT_ID -p $ARM_CLIENT_SECRET --tenant $ARM_TENANT_ID
+          az account list
       - name: Plan
         run: terraspace plan bcp
           
