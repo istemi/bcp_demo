@@ -1,31 +1,18 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Terraform Plan
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
-  push:
-    branches: [ main ]
   pull_request:
     branches: [ main ]
 
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  plan:
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      # Runs a single command using the runners shell
       - name: Install TerraSpace
         run: |
           sudo gem install bundler
@@ -39,14 +26,14 @@ jobs:
         run: az version
         
       - name: az Login
-        env: # Or as an environment variable
+        env:
           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
         run: |
           az login --service-principal -u "74e58dcc-5d91-4b1b-959a-ae913c5e7d46" -p "$ARM_CLIENT_SECRET" --tenant "b6f9f524-e9ad-419e-ba1d-d931e71a49e7"
           az account list
           
       - name: Plan
-        env: # Or as an environment variable
+        env: 
           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
         run: |
           export ARM_SUBSCRIPTION_ID=6373a576-34f3-45e5-b060-222a851b6762

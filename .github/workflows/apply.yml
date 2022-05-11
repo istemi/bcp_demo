@@ -1,0 +1,44 @@
+name: Terraform Apply
+
+on:
+  push:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install TerraSpace
+        run: |
+          sudo gem install bundler
+          sudo gem install terraspace
+          bundle
+        
+      - name: Check TerraSpace Installation
+        run: terraspace setup check
+        
+      - name: Check az cli
+        run: az version
+        
+      - name: az Login
+        env:
+          ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+        run: |
+          az login --service-principal -u "74e58dcc-5d91-4b1b-959a-ae913c5e7d46" -p "$ARM_CLIENT_SECRET" --tenant "b6f9f524-e9ad-419e-ba1d-d931e71a49e7"
+          az account list
+          
+      - name: Apply
+        env: 
+          ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+        run: |
+          export ARM_SUBSCRIPTION_ID=6373a576-34f3-45e5-b060-222a851b6762
+          export ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET
+          export ARM_TENANT_ID=b6f9f524-e9ad-419e-ba1d-d931e71a49e7
+          export ARM_CLIENT_ID=74e58dcc-5d91-4b1b-959a-ae913c5e7d46
+          terraspace up bcp
+          
