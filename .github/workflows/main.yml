@@ -35,5 +35,7 @@ jobs:
       - name: Check TerraSpace Installation
         run: terraspace setup check
         
-
+      - name: Install AZ Cli
+        run: az version
+        
 
