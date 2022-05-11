@@ -28,6 +28,7 @@ jobs:
       # Runs a single command using the runners shell
       - name: Install TerraSpace
         run: |
+          sudo gem install bundler
           sudo gem install terraspace
           bundle
         
