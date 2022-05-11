@@ -24,9 +24,3 @@ module "bcp_la" {
   rg_name = module.bcp_rg2.name
   location = var.location
 }
-
-module "bcp_rgTest" {
-  source = "../../modules/rgTest"
-  rg_name = var.bcp_rgTest
-  location = var.location
-}

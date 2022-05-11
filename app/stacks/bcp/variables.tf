@@ -22,7 +22,3 @@ variable "bcp_rg2" {
 variable "bcp_la" {
   type = string
 }
-
-variable "bcp_rgTest" {
-  type = string
-}
