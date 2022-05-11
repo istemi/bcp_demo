@@ -38,7 +38,7 @@ jobs:
       - name: Check AZ Cli
         run: az version
         
-      - name: Test Secret
+      - name: Export Secrets
         env: # Or as an environment variable
           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
         run: |
@@ -46,5 +46,7 @@ jobs:
           export ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET
           export ARM_TENANT_ID=b6f9f524-e9ad-419e-ba1d-d931e71a49e7
           export ARM_CLIENT_ID=74e58dcc-5d91-4b1b-959a-ae913c5e7d46
-          env
+          
+      - name: Plan
+        run: terraspace plan bcp
           
