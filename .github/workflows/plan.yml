@@ -42,21 +42,13 @@ jobs:
           export ARM_CLIENT_ID=74e58dcc-5d91-4b1b-959a-ae913c5e7d46
           export ARM_LOCATION=canadacentral
           terraspace plan bcp
-        id: step_id
-      - uses: robburger/terraform-pr-commenter@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
+        id: plan
+      - name: Post Comment
+        uses: peter-evans/create-or-update-comment@v2
         with:
-          commenter_type: plan # Choose one
-          commenter_input: ${{ format('{0}{1}', steps.step_id.outputs.stdout, steps.step_id.outputs.stderr) }}
-          commenter_exitcode: ${{ steps.step_id.outputs.exitcode }}
-#       - name: Post Comment
-#         uses: peter-evans/create-or-update-comment@v2
-#         with:
-#           token: ${{ secrets.PAT }}
-#           issue-number: ${{ github.event.pull_request.number }}
-#           body: |
-#             ${{ format('{0}{1}', steps.plan.outputs.stdout, steps.plan.outputs.stderr) }}
-#             This is a multi-line test comment
-#             - With GitHub **Markdown** :sparkles:
-#           reactions: 'eyes'    
+          token: ${{ secrets.PAT }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: ${{ format('{0}{1}', steps.plan.outputs.stdout, steps.plan.outputs.stderr) }}
+         #   This is a multi-line test comment
+         #   - With GitHub **Markdown** :sparkles:
+          reactions: 'eyes'    
