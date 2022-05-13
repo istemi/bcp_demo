@@ -48,7 +48,7 @@ jobs:
           REPORT="${REPORT//$'\r'/'%0D'}"
           echo "::set-output name=plan_output::$REPORT"
         id: plan
-      - name: Post Comment
+      - name: Plan Output Comment Post
         uses: peter-evans/create-or-update-comment@v2
         with:
           token: ${{ secrets.PAT }}
