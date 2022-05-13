@@ -49,7 +49,7 @@ jobs:
           token: ${{ secrets.PAT }}
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            ${{join(steps.plan.outputs.*, '\n')}}
+            ${{ format('{0}{1}', steps.plan.outputs.stdout, steps.plan.outputs.stderr) }}
             This is a multi-line test comment
             - With GitHub **Markdown** :sparkles:
           reactions: 'eyes'    
