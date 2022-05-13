@@ -41,7 +41,8 @@ jobs:
           export ARM_TENANT_ID=b6f9f524-e9ad-419e-ba1d-d931e71a49e7
           export ARM_CLIENT_ID=74e58dcc-5d91-4b1b-959a-ae913c5e7d46
           export ARM_LOCATION=canadacentral
-          terraspace plan bcp
+          terraspace plan bcp 2>&1 | tee output.log
+          echo "::set-output name=plan_output::$(cat output.log)"
         id: plan
       - name: Post Comment
         uses: peter-evans/create-or-update-comment@v2
@@ -50,7 +51,7 @@ jobs:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
             Test
-            ${{ format('{0}{1}', steps.plan.outputs.stdout, steps.plan.outputs.stderr) }}
+            ${{join(steps.plan.outputs.*, '\n')}}
          #   This is a multi-line test comment
          #   - With GitHub **Markdown** :sparkles:
           reactions: 'eyes'    
