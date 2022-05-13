@@ -54,6 +54,8 @@ jobs:
           token: ${{ secrets.PAT }}
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            **Plan Output** :sparkles:
+            **Plan Output** :sparkles: :rocket:
+            ```
             ${{join(steps.plan.outputs.*, '\n')}}
+            ```
           reactions: 'eyes'    
