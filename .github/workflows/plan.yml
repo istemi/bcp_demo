@@ -45,6 +45,7 @@ jobs:
       - name: Post Comment
         uses: peter-evans/create-or-update-comment@v2
         with:
+          token: ${{ secrets.PAT }}
           issue-number: ${{ github.event.pull_request.number }}
           body: |
             This is a multi-line test comment
