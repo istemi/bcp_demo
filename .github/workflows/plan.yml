@@ -41,7 +41,7 @@ jobs:
           export ARM_TENANT_ID=b6f9f524-e9ad-419e-ba1d-d931e71a49e7
           export ARM_CLIENT_ID=74e58dcc-5d91-4b1b-959a-ae913c5e7d46
           export ARM_LOCATION=canadacentral
-          terraspace plan bcp 2>&1 | tee output.log
+          terraspace plan bcp -no-color 2>&1 | tee output.log
           REPORT="$(cat output.log)"
           REPORT="${REPORT//'%'/'%25'}"
           REPORT="${REPORT//$'\n'/'%0A'}"
@@ -54,8 +54,6 @@ jobs:
           token: ${{ secrets.PAT }}
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            Test
+            **Plan Output** :sparkles:
             ${{join(steps.plan.outputs.*, '\n')}}
-         #   This is a multi-line test comment
-         #   - With GitHub **Markdown** :sparkles:
           reactions: 'eyes'    
