@@ -18,9 +18,9 @@ module "bcp_rg2" {
   location = var.location
 }
 
-module "bcp_la" {
-  source = "../../modules/law"
-  la_name = var.bcp_la
-  rg_name = module.bcp_rg2.name
-  location = var.location
-}
+# module "bcp_la" {
+#   source = "../../modules/law"
+#   la_name = var.bcp_la
+#   rg_name = module.bcp_rg2.name
+#   location = var.location
+# }
