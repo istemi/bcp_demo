@@ -42,15 +42,14 @@ jobs:
           export ARM_CLIENT_ID=74e58dcc-5d91-4b1b-959a-ae913c5e7d46
           export ARM_LOCATION=canadacentral
           terraspace plan bcp
+        id: plan
       - name: Post Comment
         uses: peter-evans/create-or-update-comment@v2
         with:
           token: ${{ secrets.PAT }}
           issue-number: ${{ github.event.pull_request.number }}
           body: |
+            ${{join(steps.plan.outputs.*, '\n')}}
             This is a multi-line test comment
             - With GitHub **Markdown** :sparkles:
-            - Created by [create-or-update-comment][1]
-
-            [1]: https://github.com/peter-evans/create-or-update-comment
-          reactions: '+1'    
+          reactions: 'eyes'    
